@@ -1,6 +1,15 @@
 class Solution {
 public:
-unordered_map<char,string>m;
+unordered_map<char,string>m = {
+    {'2',"abc"},
+    {'3',"def"},
+    {'4',"ghi"},
+    {'5',"jkl"},
+    {'6',"mno"},
+    {'7',"pqrs"},
+    {'8',"tuv"},
+    {'9',"wxyz"}
+};
 void solve(int idx,string digits,string temp,vector<string>& v){
     if(idx == digits.size()){
         v.push_back(temp);
@@ -13,14 +22,6 @@ void solve(int idx,string digits,string temp,vector<string>& v){
     }
 }
     vector<string> letterCombinations(string digits) {
-        m['2'] = "abc";
-        m['3'] = "def";
-        m['4'] = "ghi";
-        m['5'] = "jkl";
-        m['6'] = "mno";
-        m['7'] = "pqrs";
-        m['8'] = "tuv";
-        m['9'] = "wxyz";
         vector<string>v;
         string temp = "";
         solve(0,digits,temp,v);
