@@ -7,10 +7,11 @@ vector<int>& temp,int target){
             v.push_back(temp);
         return;
     }
-    if(target < 0) return;
-    temp.push_back(nums[idx]);
-    solve(idx,nums,v,temp,target - nums[idx]);
-    temp.pop_back();
+    if(nums[idx] <= target){
+        temp.push_back(nums[idx]);
+        solve(idx,nums,v,temp,target - nums[idx]);
+        temp.pop_back();
+    }
     solve(idx+1,nums,v,temp,target);
 }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
