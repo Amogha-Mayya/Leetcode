@@ -21,7 +21,7 @@
  */
 class Solution {
 public:
-ListNode* middle_ll(ListNode* head){
+ListNode* solve(ListNode* head){
     ListNode* slow = head;
     ListNode* fast = head;
     ListNode* prev = nullptr;
@@ -36,7 +36,7 @@ ListNode* middle_ll(ListNode* head){
 }
     TreeNode* sortedListToBST(ListNode* head) {
         if(!head) return nullptr;
-        ListNode* mid = middle_ll(head);
+        ListNode* mid = solve(head);
         TreeNode* root = new TreeNode(mid->val);
         if(mid == head) return root;
         root->left = sortedListToBST(head);
