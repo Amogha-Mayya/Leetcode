@@ -22,21 +22,22 @@ void solve(TreeNode* root,vector<vector<int>>& v){
         int size = q.size();
         while(size--){
             auto it = q.front();
-            TreeNode* node = it.first;
+            TreeNode* curr = it.first;
             int row = it.second.first;
             int col = it.second.second;
             q.pop();
-            m[col][row].insert(node->val);
-            if(it.first->left) q.push({it.first->left,{row+1,col-1}});
-            if(it.first->right) q.push({it.first->right,{row+1,col+1}});
+            m[col][row].insert(curr->val);
+            if(curr->left) q.push({curr->left,{row+1,col-1}});
+            if(curr->right) q.push({curr->right,{row+1,col+1}});
         }
     }
 
     for(auto i:m){
         vector<int>temp;
         for(auto j:i.second){
-            for(auto k:j.second)
+            for(auto k:j.second){
                 temp.push_back(k);
+            }
         }
         v.push_back(temp);
     }
