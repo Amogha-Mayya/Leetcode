@@ -1,20 +1,19 @@
 class Solution {
 public:
-void solve(int idx,vector<int>& nums,vector<vector<int>>& v,
-vector<int>& temp){
-    if(idx == nums.size()){
-        v.push_back(temp);
-        return;
-    }
-    temp.push_back(nums[idx]);
-    solve(idx+1,nums,v,temp);
-    temp.pop_back();
-    solve(idx+1,nums,v,temp);
-}
     vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>>v;
-        vector<int>temp;
-        solve(0,nums,v,temp);
+        int n = nums.size();
+        for(int i=0;i<pow(2,n);i++){
+            vector<int>temp;
+            int x = 0;
+            int copy = i;
+            while(copy>0){
+                if(copy&1) temp.push_back(nums[x]);
+                copy = (copy>>1);
+                x++;
+            }
+            v.push_back(temp);
+        }
         return v;
     }
 };
