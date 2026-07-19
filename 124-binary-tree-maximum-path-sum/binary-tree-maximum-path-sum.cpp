@@ -18,10 +18,11 @@ int solve(TreeNode* root){
     if(left < 0) left = 0;
     int right = solve(root->right);
     if(right < 0) right = 0;
-    maxi = max(maxi,root->val + left + right);
+    maxi = max(maxi,left + right + root->val);
     return root->val + max(left,right);
 }
     int maxPathSum(TreeNode* root) {
+        if(!root || (!root->left && !root->right)) return root->val;
         solve(root);
         return maxi;
     }
