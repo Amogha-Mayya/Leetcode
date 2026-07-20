@@ -1,20 +1,24 @@
 class Solution {
 public:
-int solve(int idx,vector<int>& nums,int prev_idx,
+int solve(int idx,vector<int>& nums,int prev,
 vector<vector<int>>& dp){
-    if(idx >= nums.size()){
+    if(idx == nums.size()){
         return 0;
     }
-    if(dp[idx][prev_idx + 1] != -1) return dp[idx][prev_idx + 1];
+    // pick the element
+    if(dp[idx][prev+1] != -1) return dp[idx][prev+1];
     int pick = 0;
-    if((prev_idx == -1) || nums[idx] > nums[prev_idx])
+    if(prev == -1 || nums[prev] < nums[idx])
     pick = 1 + solve(idx+1,nums,idx,dp);
-    int notpick = solve(idx+1,nums,prev_idx,dp);
-    return dp[idx][prev_idx + 1] = max(pick,notpick);
+    // not pick the element
+    int notpick = solve(idx+1,nums,prev,dp);
+    return dp[idx][prev+1] = max(pick,notpick);
 }
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
+        int idx = 0;
         vector<vector<int>>dp(n,vector<int>(n+1,-1));
-        return solve(0,nums,-1,dp);
+        int prev = -1;
+        return solve(idx,nums,prev,dp);
     }
 };
