@@ -4,16 +4,18 @@ public:
         int n = nums.size();
         vector<int>diff(n,0);
         for(auto i:queries){
-            int l = i[0];
-            int r = i[1];
-            diff[l]+=1;
-            if(r+1 < n)
-            diff[r+1]-=1;
+            int left = i[0];
+            int right = i[1];
+            int val = -1;
+            diff[left]-=val;
+            if(right + 1 < n)
+            diff[right + 1]+=val;
         }
+        // take prefix sum
         vector<int>v;
         int sum = 0;
         for(int i=0;i<n;i++){
-            sum+=diff[i];
+            sum += diff[i];
             v.push_back(sum);
         }
         for(int i=0;i<n;i++){
