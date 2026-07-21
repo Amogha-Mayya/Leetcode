@@ -2,10 +2,10 @@ class Solution {
 public:
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
         intervals.push_back(newInterval);
-        // merge interval
         sort(intervals.begin(),intervals.end());
-        int n = intervals.size();
+        // merge interval
         vector<vector<int>>v;
+        int n = intervals.size();
         v.push_back(intervals[0]);
         for(int i=1;i<n;i++){
             vector<int>& prev = v.back();
