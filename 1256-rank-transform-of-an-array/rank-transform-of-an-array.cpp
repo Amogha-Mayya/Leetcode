@@ -1,21 +1,19 @@
 class Solution {
 public:
     vector<int> arrayRankTransform(vector<int>& arr) {
-        priority_queue<int,vector<int>,greater<int>>pq;
-        for(auto i:arr){
-            pq.push(i);
-        }
+        int n = arr.size();
+        vector<int>temp = arr;
         unordered_map<int,int>m;
-        int temp = 1;
-        while(!pq.empty()){
-            int x = pq.top();
-            m[x] = temp;
-            pq.pop();
-            if(x != pq.top()) temp++;
+        sort(temp.begin(),temp.end());
+        int x = 1;
+        for(auto i:temp){
+            if(m[i]) continue;
+            else m[i] = x++;
         }
         vector<int>v;
-        for(auto i:arr)
-            v.push_back(m[i]);
+        for(int i=0;i<n;i++){
+            v.push_back(m[arr[i]]);
+        }
         return v;
     }
 };
