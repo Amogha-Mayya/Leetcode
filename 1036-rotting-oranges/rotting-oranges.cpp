@@ -1,6 +1,6 @@
 class Solution {
 public:
-vector<vector<int>>c = {
+vector<vector<int>>c= {
     {1,0},{0,1},{-1,0},{0,-1}
 };
     int orangesRotting(vector<vector<int>>& grid) {
@@ -10,8 +10,7 @@ vector<vector<int>>c = {
         queue<pair<int,int>>q;
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                if(grid[i][j] == 1)
-                    fresh++;
+                if(grid[i][j] == 1) fresh++;
                 if(grid[i][j] == 2)
                     q.push({i,j});
             }
@@ -25,11 +24,10 @@ vector<vector<int>>c = {
                 for(int k=0;k<c.size();k++){
                     int xn = x + c[k][0];
                     int yn = y + c[k][1];
-                    if(xn >= 0 && yn >=0 && xn < m && yn < n
-                    && grid[xn][yn] == 1)
-                    {
+                    if(xn >=0 && yn >=0 && xn < m
+                    && yn < n && grid[xn][yn] == 1){
+                        grid[xn][yn] = 2;
                         q.push({xn,yn});
-                        grid[xn][yn] = 2; // rot it
                         fresh--;
                     }
                 }
