@@ -1,19 +1,17 @@
 class Solution {
 public:
-int solve(int idx,vector<int>& prices,bool have_share,
+int solve(int idx,vector<int>& prices,bool hold,
 vector<vector<int>>& dp){
     if(idx == prices.size()) return 0;
-    int buy = 0,sell = 0, hold = 0, wait = 0;
-    if(dp[idx][have_share] != -1) return dp[idx][have_share];
-    if(have_share == false){
-    buy = -1 * prices[idx] + solve(idx+1,prices,true,dp);
-    wait = solve(idx+1,prices,false,dp);
+    int pick = 0,notpick = 0;
+    if(dp[idx][hold] != -1) return dp[idx][hold];
+    if(hold == false){
+        pick = max(-prices[idx] + solve(idx+1,prices,true,dp),solve(idx+1,prices,false,dp));
     }
-    if(have_share == true){
-    sell = prices[idx] + solve(idx+1,prices,false,dp);
-    hold = solve(idx+1,prices,true,dp);
+    else{
+        notpick = max(prices[idx] + solve(idx+1,prices,false,dp),solve(idx+1,prices,true,dp));
     }
-    return dp[idx][have_share] = max({buy,wait,sell,hold});
+    return dp[idx][hold] = max(pick,notpick);
 }
     int maxProfit(vector<int>& prices) {
         int n = prices.size();
