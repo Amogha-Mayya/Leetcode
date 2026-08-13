@@ -6,7 +6,7 @@ public:
         string s1 = s;
         reverse(s.begin(),s.end());
         string s2 = s;
-        vector<vector<int>>dp(n1+1,vector<int>(n2+1,0));
+        vector<vector<int>>dp(n1 + 1,vector<int>(n2 + 1,0));
         for(int i=1;i<=n1;i++){
             for(int j=1;j<=n2;j++){
                 if(s1[i-1] == s2[j-1]){
