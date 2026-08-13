@@ -8,7 +8,7 @@ public:
         }
         for(int i=1;i<=n;i++){
             for(int j=1;j<=amount;j++){
-                int pick = INT_MAX;
+                int pick = 1e9;
                 if(coins[i-1] <= j){
                     pick = 1 + dp[i][j - coins[i-1]];
                 }
@@ -16,6 +16,6 @@ public:
                 dp[i][j] = min(pick,notpick);
             }
         }
-        return (dp[n][amount] == 1e9)? -1:dp[n][amount];
+        return (dp[n][amount] == 1e9)? -1 : dp[n][amount];
     }
 };
