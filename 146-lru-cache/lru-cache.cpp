@@ -1,37 +1,39 @@
 class LRUCache {
 public:
-vector<pair<int,int>>v;
-int n;
+    list<int>dll; // key
+    map<int,pair<list<int>::iterator,int>>m; // key , (address,value)
+    int n;
     LRUCache(int capacity) {
         n = capacity;
     }
     
     int get(int key) {
-        for(auto it = v.begin();it!=v.end();it++){
-            if(it->first == key){
-                int value = it->second;
-                v.erase(it);
-                v.push_back({key,value});
-                return value;
-            }
-        }
-        return -1;
+        if(m.find(key) == m.end()) return -1;
+        dll.erase(m[key].first);
+        dll.push_front(key);
+        m[key].first = dll.begin();
+        return m[key].second;
     }
     
     void put(int key, int value) {
-        for(auto it = v.begin();it!=v.end();it++){
-            if(it->first == key){
-                v.erase(it);
-                v.push_back({key,value});
-                return;
-            }
-        }
-        if(v.size() + 1 > n){
-            v.erase(v.begin());
-            v.push_back({key,value});
+        if(m.find(key) != m.end()){
+            dll.erase(m[key].first);
+            dll.push_front(key);
+            m[key] = {dll.begin(),value};
         }
         else{
-            v.push_back({key,value});
+            if(dll.size() == n){
+                // evict
+                int oldkey = dll.back();
+                dll.pop_back();
+                dll.push_front(key);
+                m.erase(oldkey);  
+                m[key] = {dll.begin(),value};
+            }
+            else{
+                dll.push_front(key);
+                m[key] = {dll.begin(),value};
+            }
         }
     }
 };
