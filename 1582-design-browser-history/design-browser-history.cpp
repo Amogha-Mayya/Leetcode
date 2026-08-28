@@ -1,33 +1,29 @@
 class BrowserHistory {
 public:
-    list<string>dll;
-    list<string>::iterator curr;
+    stack<string>backward,foward;
     BrowserHistory(string homepage) {
-        dll.push_back(homepage);
-        curr = dll.begin();
+        backward.push(homepage);
     }
     
     void visit(string url) {
-        auto it = curr;
-        it++;
-        dll.erase(it,dll.end());
-
-        dll.push_back(url);
-        curr = --dll.end();
+        foward = stack<string>();
+        backward.push(url);
     }
     
     string back(int steps) {
-        while (steps-- && curr != dll.begin()) {
-            curr--;
+        while(steps-- && backward.size() > 1){
+            foward.push(backward.top());
+            backward.pop();
         }
-        return *curr;
+        return backward.top();
     }
     
     string forward(int steps) {
-        while (steps-- && curr != (--dll.end())) {
-            curr++;
+        while(steps-- && !foward.empty()){
+            backward.push(foward.top());
+            foward.pop();
         }
-        return *curr;
+        return backward.top();
     }
 };
 
