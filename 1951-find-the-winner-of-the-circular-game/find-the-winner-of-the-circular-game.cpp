@@ -1,16 +1,15 @@
 class Solution {
 public:
     int findTheWinner(int n, int k) {
-        vector<int>v;
-        for(int i=1;i<=n;i++)
-            v.push_back(i);
+        vector<int>arr;
         int idx = 0;
+        k-=1;
+        for(int i=1;i<=n;i++)
+            arr.push_back(i);
         for(int i=1;i<n;i++){
-            idx+=(k-1);
-            idx%=(v.size());
-            cout<<idx<<" ";
-            v.erase(v.begin() + idx);
+            idx = (idx + k)%arr.size();
+            arr.erase(arr.begin() + idx);
         }
-        return v[0];
+        return arr[0];
     }
 };
