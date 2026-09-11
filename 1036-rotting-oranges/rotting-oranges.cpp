@@ -10,14 +10,12 @@ vector<vector<int>>c = {
         queue<pair<int,int>>q;
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                if(grid[i][j] == 2)
-                    q.push({i,j});
-                if(grid[i][j] == 1)
-                    fresh++;
+                if(grid[i][j] == 1) fresh++;
+                if(grid[i][j] == 2) q.push({i,j});
             }
         }
         int time = 0;
-        while(!q.empty() && fresh){
+        while(!q.empty() && fresh>0){
             int size = q.size();
             while(size--){
                 auto [x,y] = q.front();
@@ -25,10 +23,9 @@ vector<vector<int>>c = {
                 for(int k=0;k<c.size();k++){
                     int xn = x + c[k][0];
                     int yn = y + c[k][1];
-                    if(xn >=0 && yn >=0 && xn < m && yn < n && 
-                    grid[xn][yn] == 1){
-                        grid[xn][yn] = 2; // rot it
+                    while(xn>=0 && yn>=0 && xn<m && yn<n && grid[xn][yn] == 1){
                         q.push({xn,yn});
+                        grid[xn][yn] = 2; // rot it
                         fresh--;
                     }
                 }
