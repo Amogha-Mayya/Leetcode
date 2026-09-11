@@ -6,17 +6,18 @@ vector<vector<int>>c = {
     int numEnclaves(vector<vector<int>>& grid) {
         int m = grid.size();
         int n = grid[0].size();
-        int count = 0;
         queue<pair<int,int>>q;
+        vector<vector<int>>vis(m,vector<int>(n,0));
+        // push all the boundary 1's to queue
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 if(i == 0 || i == m-1 || j == 0 || j == n-1){
-                    if(grid[i][j] == 1){
-                        q.push({i,j});
-                    }
+                    if(grid[i][j] == 1)
+                    q.push({i,j});
                 }
             }
         }
+        cout<<q.size()<<endl;
         while(!q.empty()){
             auto [x,y] = q.front();
             q.pop();
@@ -25,19 +26,17 @@ vector<vector<int>>c = {
                 int yn = y + c[k][1];
                 if(xn > 0 && yn > 0 && xn < m-1 && yn < n-1
                 && grid[xn][yn] == 1){
-                    grid[xn][yn] = 0;
                     q.push({xn,yn});
+                    grid[xn][yn] = -1;
                 }
             }
         }
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(i > 0 && j > 0 && i < m-1 && j < n-1 &&
-                grid[i][j] == 1){
-                    count++;
+        int count = 0;
+        for(int i=1;i<m-1;i++){
+            for(int j=1;j<n-1;j++){
+                    if(grid[i][j] == 1) count++;
                 }
             }
-        }
         return count;
     }
 };
