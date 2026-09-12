@@ -1,23 +1,35 @@
 class Solution {
 public:
-bool dfs(vector<vector<int>>& graph,vector<int>& color,
-int node,int clr){
+bool solve(int node,unordered_map<int,vector<int>>& m,
+vector<int>& vis,vector<int>& color,int clr){
+    vis[node] = 1;
     color[node] = clr;
-    for(auto i:graph[node]){
-        if(color[i] == -1){
-            if(dfs(graph,color,i,!clr) == false) return false;
+    for(auto i:m[node]){
+        if(!vis[i]){
+            if(solve(i,m,vis,color,!clr) == false) return false;
         }
-        else if(color[i] == clr) return false;
+        else{
+            if(color[i] == clr) return false;
+        }
     }
     return true;
 }
     bool isBipartite(vector<vector<int>>& graph) {
+        // adjacency list
         int n = graph.size();
+        unordered_map<int,vector<int>>m;
+        int k = 0;
+        for(auto i:graph){
+            for(auto j:i){
+                m[k].push_back(j);
+            }
+            k++;
+        }
+        vector<int>vis(n,0);
         vector<int>color(n,-1);
         for(int i=0;i<n;i++){
-            if(color[i] == -1){
-                if(dfs(graph,color,i,0) == false) return false;
-            }
+            if(!vis[i])
+            if(solve(i,m,vis,color,0) == false) return false;
         }
         return true;
     }
