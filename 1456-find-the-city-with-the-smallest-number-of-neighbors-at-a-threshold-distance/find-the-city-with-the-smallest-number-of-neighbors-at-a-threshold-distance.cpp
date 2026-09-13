@@ -1,9 +1,11 @@
 class Solution {
 public:
 typedef pair<int,int>pp;
-void djikstra(int src,vector<int>& dist,unordered_map<int,vector<pair<int,int>>>& m,int n){
+void dijkstra(int node,vector<int>& dist,
+unordered_map<int,vector<pp>>& m){
     priority_queue<pp,vector<pp>,greater<pp>>q;
-    q.push({0,src});
+    q.push({0,node});
+    dist[node] = 0;
     while(!q.empty()){
         auto [d,u] = q.top();
         q.pop();
@@ -19,7 +21,7 @@ void djikstra(int src,vector<int>& dist,unordered_map<int,vector<pair<int,int>>>
     }
 }
     int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
-        unordered_map<int,vector<pair<int,int>>>m;
+        unordered_map<int,vector<pp>>m;
         for(auto i:edges){
             int a = i[0];
             int b = i[1];
@@ -27,16 +29,14 @@ void djikstra(int src,vector<int>& dist,unordered_map<int,vector<pair<int,int>>>
             m[a].push_back({b,c});
             m[b].push_back({a,c});
         }
-        int mini = INT_MAX, ans = 0;
+        int ans = -1;
+        int mini = INT_MAX;
         for(int i=0;i<n;i++){
             vector<int>dist(n,1e9);
-            dist[i] = 0;
-            djikstra(i,dist,m,n);
             int count = 0;
-            for(int j=0;j<dist.size();j++){
-                if(dist[j] <= distanceThreshold){
-                    count++;
-                }
+            dijkstra(i,dist,m);
+            for(auto j:dist){
+                if(j <= distanceThreshold) count++;
             }
             if(count <= mini){
                 mini = count;
