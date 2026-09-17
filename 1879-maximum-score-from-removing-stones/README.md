@@ -9,7 +9,7 @@
 <strong>Input:</strong> a = 2, b = 4, c = 6
 <strong>Output:</strong> 6
 <strong>Explanation:</strong> The starting state is (2, 4, 6). One optimal set of moves is:
-- Take from 1st and 3rd piles, state is now (1, 4, 5)
+- ke from 1st and 3rd piles, state is now (1, 4, 5)
 - Take from 1st and 3rd piles, state is now (0, 4, 4)
 - Take from 2nd and 3rd piles, state is now (0, 3, 3)
 - Take from 2nd and 3rd piles, state is now (0, 2, 2)
