@@ -1,20 +1,19 @@
 class Solution {
 public:
     bool checkValidString(string s) {
-        int minopen = 0;
-        int maxopen = 0;
+        int maxopen = 0, minopen = 0;
         for(char ch : s){
             if(ch == '('){
-                minopen++;
                 maxopen++;
+                minopen++;
             }
             else if(ch == ')'){
-                minopen--;
                 maxopen--;
+                minopen--;
             }
             else{
-                minopen--;
                 maxopen++;
+                minopen--;
             }
             if(maxopen < 0) return false;
             minopen = max(minopen,0);
